@@ -1,0 +1,45 @@
+<div>
+    <div class="sm:tw-flex sm:tw-items-center">
+        <div class="sm:tw-flex-auto">
+            <h1 class="tw-text-base tw-font-semibold tw-leading-6 tw-text-gray-900">{{ table.title }}</h1>
+            {% if table.content is not empty %}
+                <p class="tw-mt-2 tw-text-sm tw-text-gray-700">{{ table.content }}</p>
+            {% endif %}
+        </div>
+        <div class="tw-mt-4 sm:tw-ml-16 sm:tw-mt-0 sm:tw-flex-none">
+            <button type="button"
+                    class="tw-block tw-rounded-md tw-bg-indigo-600 tw-px-3 tw-py-2 tw-text-center tw-text-sm tw-font-semibold tw-text-white tw-shadow-sm hover:tw-bg-indigo-500 focus-visible:tw-outline focus-visible:tw-outline-2 focus-visible:tw-outline-offset-2 focus-visible:tw-outline-indigo-600">
+                Add item
+            </button>
+        </div>
+    </div>
+    <div class="tw-mt-8 tw-flow-root">
+        <div class="-tw-mx-4 -tw-my-2 tw-overflow-x-auto sm:-tw-mx-6 lg:-tw-mx-8">
+            <div class="tw-inline-block tw-min-w-full tw-py-2 tw-align-middle sm:tw-px-6 lg:tw-px-8">
+                <table class="tw-min-w-full tw-divide-y tw-divide-gray-300">
+                    <thead>
+                        <tr class="tw-divide-x tw-divide-gray-200">
+                            {% for column in table.columns %}
+                                <th scope="col"
+                                    class="tw-px-4 tw-py-3.5 tw-text-left tw-text-sm tw-font-semibold">
+                                    {{ column.title }}
+                                </th>
+                            {% endfor %}
+                        </tr>
+                    </thead>
+                    <tbody class="tw-divide-y tw-divide-gray-200 tw-bg-white">
+                        {% for row in table.rows %}
+                            <tr class="tw-divide-x tw-divide-gray-200">
+                                {% for column in table.columns %}
+                                    <td class="tw-whitespace-nowrap tw-p-4 tw-text-sm {% if loop.first %}sm:tw-pl-0{% elseif loop.last %}sm:tw-pr-0{% else %}{% endif %}">
+                                        {{ row[column.key] }}
+                                    </td>
+                                {% endfor %}
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

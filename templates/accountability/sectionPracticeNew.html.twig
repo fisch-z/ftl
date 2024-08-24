@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New SectionPractice{% endblock %}
+
+{% block body %}
+    <div class="tw-mb-6">
+        <div class="tw-flex tw-items-center tw-gap-1">
+            <div class="tw-text-xl">{{ section.titleFull }}</div>
+            <div class="tw-text-gray-500 tw-h-[24px]">{{ section.customName }}</div>
+        </div>
+        <div>
+            <span class="tw-text-gray-500">SL:</span> {{ section.sectionLeader.userNameWithRank | default("vacant") }}
+            <span class="tw-text-gray-500">ASL:</span> {{ section.assistantSectionLeader.userNameWithRank | default("vacant") }}
+        </div>
+    </div>
+
+    <div>
+        {{ include('accountability/sectionPracticeForm.html.twig') }}
+    </div>
+{% endblock %}

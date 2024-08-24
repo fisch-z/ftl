@@ -1,0 +1,15 @@
+#mainick_keycloak_client:
+#  keycloak:
+#    verify_ssl: '%env(bool:IAM_VERIFY_SSL)%'
+#    base_url: '%env(IAM_BASE_URL)%'
+#    realm: '%env(IAM_REALM)%'
+#    client_id: '%env(IAM_CLIENT_ID)%'
+#    client_secret: '%env(IAM_CLIENT_SECRET)%'
+#    redirect_uri: '%env(IAM_REDIRECT_URI)%'
+#    encryption_algorithm: 'RS256'
+#    encryption_key: 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAxqVHJNOeTvAYRy/GiosrciUG6YenRFDKBjVwnHKtApQGygLVXez8mqYSuUXcJUquTvfXq93ygF7mfq93ZTZ6IGa0918SgivV01rNR/Rx+YIACzwZFl2GB2uELoURkL1iSHnjmeUaoOqDWmG5ITmWI3JttMqQwUtlzK/0+yXKdkb1fUfNPu5CYCAtv2Krw6qxXZWjNlx4SdpHejBFzJ11aKFjG6/F5FoHWWGoByXZqkHhYBv0ZtZ9GDd++UqRwk/0doQS0gtBbM3EPd7ZUGSlwezQObtaeEGOUaSF2rBQ/2XHwe1CCE2X2R6LflX4Ts1TKp2DSComi2GOd4wUvMaFgQIDAQAB'
+#    encryption_key_path: ''
+##    encryption_algorithm: '%env(IAM_ENCRYPTION_ALGORITHM)%'
+##    encryption_key: '%env(IAM_ENCRYPTION_KEY)%'
+##    encryption_key_path: '%env(IAM_ENCRYPTION_KEY_PATH)%'
+#    version: '%env(IAM_VERSION)%'

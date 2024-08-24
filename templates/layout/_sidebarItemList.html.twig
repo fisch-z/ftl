@@ -1,0 +1,22 @@
+<ul role="list" class="tw-flex tw-flex-1 tw-flex-col tw-gap-y-7">
+    <li>
+        <ul role="list" class="-tw-mx-2 tw-space-y-1">
+            {% for item in mainNavigation() %}
+                <li>
+                    <a class="tw-group tw-flex tw-gap-x-3 tw-rounded-md tw-p-2 tw-text-sm tw-leading-6 tw-font-semibold {% if item.active %}tw-bg-gray-50 tw-text-indigo-600{% else %}tw-text-gray-700 hover:tw-text-indigo-600 hover:tw-bg-gray-50{% endif %}" href="{{ item.url }}">{{ item.title }}</a>
+                </li>
+            {% endfor %}
+
+            {# <li class="tw-group tw-flex tw-gap-x-3 tw-rounded-md tw-p-2 tw-text-sm tw-leading-6 tw-font-semibold {% if app.request.get('_route') starts with 'app_root' %}tw-bg-gray-50 tw-text-indigo-600{% else %}tw-text-gray-700 hover:tw-text-indigo-600 hover:tw-bg-gray-50{% endif %}"> #}
+            {#    Home #}
+            {#    #}{# <a href="{{ path("app_milpac_index") }}">Milpac</a> #}
+            {# </li> #}
+            {# <li class="tw-group tw-flex tw-gap-x-3 tw-rounded-md tw-p-2 tw-text-sm tw-leading-6 tw-font-semibold {% if app.request.get('_route') starts with 'app_milpac' %}tw-bg-gray-50 tw-text-indigo-600{% else %}tw-text-gray-700 hover:tw-text-indigo-600 hover:tw-bg-gray-50{% endif %}"> #}
+            {#    Milpac #}
+            {#    #}{# <a href="{{ path("app_milpac_index") }}">Milpac</a> #}
+            {# </li> #}
+
+
+        </ul>
+    </li>
+</ul>

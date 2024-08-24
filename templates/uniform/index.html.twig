@@ -1,0 +1,111 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    {#    <a href="{{ path("app_milpac_show", {id: 1}) }}">test</a> #}
+    <div data-controller="uniformindex">
+        <div class="tw-flex tw-justify-between tw-items-end tw-mb-6">
+            <div class="tw-flex tw-gap-x-3 tw-items-center tw-justify-start">
+                <div>
+                    <img src="{{ asset('images/uav-logo.webp') }}" alt="" class="tw-h-48 tw-w-auto"/>
+                </div>
+                <div>
+                    <div class="tw-text-xl">{{ organisation().title }} FTL - <b>UAV</b></div>
+                    <div><b>U</b>niform <b>A</b>utomated <b>V</b>endor</div>
+                </div>
+            </div>
+            <div class="tw-flex-col tw-items-end tw-justify-stretch tw-w-64">
+                <div>
+                    <div class="tw-flex tw-items-center tw-justify-start">
+                        <button type="button" data-uniformindex-target="toggleShowAllButton"
+                                data-action="click->uniformindex#toggleShowAll"
+                                class="tw-bg-gray-200 tw-relative tw-inline-flex tw-h-6 tw-w-11 tw-flex-shrink-0 tw-cursor-pointer tw-rounded-full tw-border-2 tw-border-transparent tw-transition-colors tw-duration-200 tw-ease-in-out focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-indigo-600 focus:tw-ring-offset-2"
+                                role="switch" aria-checked="false" aria-labelledby="list-show-all">
+                            <div data-uniformindex-target="toggleShowAllButtonInner" aria-hidden="true"
+                                 class="tw-translate-x-0 tw-pointer-events-none tw-inline-block tw-h-5 tw-w-5 tw-transform tw-rounded-full tw-bg-white tw-shadow tw-ring-0 tw-transition tw-duration-200 tw-ease-in-out"></div>
+                        </button>
+                        <div class="tw-ml-3 tw-text-sm tw-text-left" id="list-show-all">
+                            <div class="tw-font-medium tw-text-gray-900">Show all</div>
+                            <div class="tw-text-gray-500">also show updated items</div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <div class="tw-relative tw-mt-2 tw-rounded-md tw-shadow-sm">
+                        <div class="tw-pointer-events-none tw-absolute tw-inset-y-0 tw-left-0 tw-flex tw-items-center tw-pl-3">
+                            <svg class="tw-h-5 tw-w-5 tw-text-gray-400" viewBox="0 0 20 20" fill="currentColor"
+                                 aria-hidden="true">
+                                <path fill-rule="evenodd"
+                                      d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
+                                      clip-rule="evenodd"/>
+                            </svg>
+                        </div>
+                        <input class="tw-block tw-w-full tw-rounded-md tw-border-0 tw-py-1.5 tw-pl-10 tw-text-gray-900 tw-ring-1 tw-ring-inset tw-ring-gray-300 placeholder:tw-text-gray-400 focus:tw-ring-2 focus:tw-ring-inset focus:tw-ring-indigo-600 sm:tw-text-sm sm:tw-leading-6"
+                               data-uniformindex-target="textinput" data-action="input->uniformindex#filter" type="text"
+                               placeholder="Search ..."/>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tw-grid tw-grid-cols-2 tw-text-xs tw-pb-3 tw-text-gray-500">
+            <div class="">
+                Currently showing <span data-uniformindex-target="itemscount">{{ milpacProfilesUpdateRequiredCount }}</span> of {{ milpacProfiles|length }} profiles
+            </div>
+            <div class="tw-text-right">
+                {{ milpacProfilesUpdateRequiredCount }} of {{ milpacProfiles|length }} profiles require updates
+            </div>
+        </div>
+
+        <ul role="list" class="tw-border-t tw-border-gray-200">
+            {% for milpacProfile in milpacProfiles %}
+                <li class="tw-border-b tw-border-gray-200 tw-py-5{% if milpacProfile.changeStatus == "updated" %} tw-hidden{% endif %}"
+                    data-uniformindex-target="listitem"
+                    data-filter-key="{{ milpacProfile.username|lower }}"
+                    data-filter-status="{{ milpacProfile.changeStatus }}">
+                    <a class="tw-flex tw-justify-between tw-gap-x-6"
+                       href="{{ path("app_uniform_show", {userId: milpacProfile.userId}) }}">
+                        {% include "uniform/_listItem.html.twig" with {showListItemArrow: true} %}
+                    </a>
+                    {#<div>{{ milpacProfile.getBattalionAndSection.section }} / {{ milpacProfile.serviceBranch }}</div>#}
+                    {#<div class="tw-pt-5">#}
+                    {#    <div class="tw-isolate tw-inline-flex tw-rounded-md tw-shadow-sm">#}
+                    {#        <a target="_blank" type="button" href="{{ milpacProfile.data.uniformUrl }}"#}
+                    {#           class="tw-relative tw-inline-flex tw-items-center tw-rounded-l-md tw-bg-white tw-px-3 tw-py-2 tw-text-sm tw-font-semibold tw-text-gray-900 tw-ring-1 tw-ring-inset tw-ring-gray-300 hover:tw-bg-gray-50 focus:tw-z-10">Current#}
+                    {#            MILPAC Uniform</a>#}
+                    {#        <a target="_blank" type="button"#}
+                    {#           href="{{ path("app_uniform_image", {userId: milpacProfile.userId}) }}"#}
+                    {#           class="tw-relative -tw-ml-px tw-inline-flex tw-items-center tw-bg-white tw-px-3 tw-py-2 tw-text-sm tw-font-semibold tw-text-gray-900 tw-ring-1 tw-ring-inset tw-ring-gray-300 hover:tw-bg-gray-50 focus:tw-z-10">Generate#}
+                    {#            new Uniform</a>#}
+                    {#        <a target="_blank" type="button"#}
+                    {#           href="{{ path("app_milpac_show", {userId: milpacProfile.userId}) }}"#}
+                    {#           class="tw-relative -tw-ml-px tw-inline-flex tw-items-center tw-rounded-r-md tw-bg-white tw-px-3 tw-py-2 tw-text-sm tw-font-semibold tw-text-gray-900 tw-ring-1 tw-ring-inset tw-ring-gray-300 hover:tw-bg-gray-50 focus:tw-z-10">Debug#}
+                    {#            Data</a>#}
+                    {#        <a target="_blank" type="button"#}
+                    {#           href="https://7cav.us/rosters/profile/{{ milpacProfile.forumProfileId }}/"#}
+                    {#           class="tw-relative -tw-ml-px tw-inline-flex tw-items-center tw-rounded-r-md tw-bg-white tw-px-3 tw-py-2 tw-text-sm tw-font-semibold tw-text-gray-900 tw-ring-1 tw-ring-inset tw-ring-gray-300 hover:tw-bg-gray-50 focus:tw-z-10">Milpac#}
+                    {#            Profile</a>#}
+                    {#    </div>#}
+                    {#</div>#}
+                </li>
+            {% endfor %}
+        </ul>
+
+        <div class="tw-text-center tw-my-6 tw-hidden" data-uniformindex-target="noresults">
+            {#<svg  fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">#}
+            {#    <path vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />#}
+            {#</svg>#}
+            <svg class="tw-mx-auto tw-h-12 tw-w-12 tw-text-gray-400" viewBox="0 0 20 20" fill="currentColor"
+                 aria-hidden="true">
+                <path fill-rule="evenodd"
+                      d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z"
+                      clip-rule="evenodd"/>
+            </svg>
+
+            <h3 class="tw-mt-2 tw-text-sm tw-font-semibold tw-text-gray-900">No profiles found</h3>
+            <p class="tw-mt-1 tw-text-sm tw-text-gray-500">Hint: profiles that are already up-to-date are hidden by default</p>
+        </div>
+
+
+
+    </div>
+{% endblock %}

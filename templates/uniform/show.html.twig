@@ -1,0 +1,170 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    {% set t = "now"|date('U') %}
+    <div>
+        <div class="tw-mb-6">
+            <div class="tw-flex tw-justify-between tw-gap-x-6">
+                {% include "uniform/_listItem.html.twig" with {showListItemArrow: false} %}
+            </div>
+            <div>
+                <div class="tw-pt-5">
+                    <div class="tw-isolate tw-inline-flex tw-rounded-md tw-shadow-sm">
+                        {# <a target="_blank" type="button" href="{{ milpacProfile.data.uniformUrl }}" #}
+                        {#   class="tw-relative tw-inline-flex tw-items-center tw-rounded-l-md tw-bg-white tw-px-3 tw-py-2 tw-text-sm tw-font-semibold tw-text-gray-900 tw-ring-1 tw-ring-inset tw-ring-gray-300 hover:tw-bg-gray-50 focus:tw-z-10">Current #}
+                        {#    MILPAC Uniform</a> #}
+                        <a type="button"
+                           target="_blank" href="https://7cav.us/rosters/profile/{{ milpacProfile.forumProfileId }}/"
+                           class="tw-relative -tw-ml-px tw-inline-flex tw-items-center tw-bg-white tw-px-3 tw-py-2 tw-text-sm tw-font-semibold tw-text-gray-900 tw-ring-1 tw-ring-inset tw-ring-gray-300 hover:tw-bg-gray-50 focus:tw-z-10">
+                            Open Milpac Profile
+                        </a>
+                        {# <a target="_blank" type="button" #}
+                        {#   href="{{ path("app_milpac_show", {userId: milpacProfile.userId}) }}" #}
+                        {#   class="tw-relative -tw-ml-px tw-inline-flex tw-items-center tw-rounded-r-md tw-bg-white tw-px-3 tw-py-2 tw-text-sm tw-font-semibold tw-text-gray-900 tw-ring-1 tw-ring-inset tw-ring-gray-300 hover:tw-bg-gray-50 focus:tw-z-10">Debug #}
+                        {#    Data</a> #}
+                        <a type="button"
+                           download="uniform_{{ milpacProfile.username }}_{{ milpacProfile.milpacDataChangeAt|date("Y-m-d_H-i-s") }}.png"
+                           href="{{ path("app_uniform_image", {userId: milpacProfile.userId, type: "pngfull"}) }}?t={{ t }}"
+                           class="tw-relative -tw-ml-px tw-inline-flex tw-items-center tw-bg-white tw-px-3 tw-py-2 tw-text-sm tw-font-semibold tw-text-gray-900 tw-ring-1 tw-ring-inset tw-ring-gray-300 hover:tw-bg-gray-50 focus:tw-z-10">
+                            Download Uniform
+                        </a>
+                        <a type="button"
+                           href="{{ path("app_uniform_markupdated", {userId: milpacProfile.userId}) }}"
+                           class="tw-relative -tw-ml-px tw-inline-flex tw-items-center tw-bg-blue-500 tw-px-3 tw-py-2 tw-text-sm tw-font-semibold tw-text-white tw-ring-1 tw-ring-inset tw-ring-gray-300 hover:tw-bg-blue-900 focus:tw-z-10"
+                        >
+                            Mark as updated
+                        </a>
+                    </div>
+                </div>
+                {# <div class="tw-pt-5"> #}
+                {#    <div class="tw-px-3 tw-py-2 tw-text-sm tw-font-semibold tw-text-gray-900 ">Download:</div> #}
+                {#    <div class="tw-isolate tw-inline-flex tw-rounded-md tw-shadow-sm"> #}
+                {#        <a type="button" #}
+                {#           download="uniform_{{ milpacProfile.username }}_{{ milpacProfile.milpacDataChangeAt|date("Y-m-d_H-i-s") }}.jpg" #}
+                {#           href="{{ path("app_uniform_image", {userId: milpacProfile.userId, type: "jpgbars"}) }}?t={{ t }}" #}
+                {#           class="tw-relative -tw-ml-px tw-inline-flex tw-items-center tw-bg-white tw-px-3 tw-py-2 tw-text-sm tw-font-semibold tw-text-gray-900 tw-ring-1 tw-ring-inset tw-ring-gray-300 hover:tw-bg-gray-50 focus:tw-z-10"> #}
+                {#            jpg with black bars (worst) #}
+                {#        </a> #}
+                {#        <a type="button" #}
+                {#           download="uniform_{{ milpacProfile.username }}_{{ milpacProfile.milpacDataChangeAt|date("Y-m-d_H-i-s") }}.png" #}
+                {#           href="{{ path("app_uniform_image", {userId: milpacProfile.userId, type: "pngbars"}) }}?t={{ t }}" #}
+                {#           class="tw-relative -tw-ml-px tw-inline-flex tw-items-center tw-bg-white tw-px-3 tw-py-2 tw-text-sm tw-font-semibold tw-text-gray-900 tw-ring-1 tw-ring-inset tw-ring-gray-300 hover:tw-bg-gray-50 focus:tw-z-10"> #}
+                {#            png with transparent bars #}
+                {#        </a> #}
+                {#        <a type="button" #}
+                {#           download="uniform_{{ milpacProfile.username }}_{{ milpacProfile.milpacDataChangeAt|date("Y-m-d_H-i-s") }}.jpg" #}
+                {#           href="{{ path("app_uniform_image", {userId: milpacProfile.userId, type: "jpgfull"}) }}?t={{ t }}" #}
+                {#           class="tw-relative -tw-ml-px tw-inline-flex tw-items-center tw-bg-white tw-px-3 tw-py-2 tw-text-sm tw-font-semibold tw-text-gray-900 tw-ring-1 tw-ring-inset tw-ring-gray-300 hover:tw-bg-gray-50 focus:tw-z-10"> #}
+                {#            jpg full sized #}
+                {#        </a> #}
+                {#        <a type="button" #}
+                {#           download="uniform_{{ milpacProfile.username }}_{{ milpacProfile.milpacDataChangeAt|date("Y-m-d_H-i-s") }}.png" #}
+                {#           href="{{ path("app_uniform_image", {userId: milpacProfile.userId, type: "pngfull"}) }}?t={{ t }}" #}
+                {#           class="tw-relative -tw-ml-px tw-inline-flex tw-items-center tw-bg-white tw-px-3 tw-py-2 tw-text-sm tw-font-semibold tw-text-gray-900 tw-ring-1 tw-ring-inset tw-ring-gray-300 hover:tw-bg-gray-50 focus:tw-z-10"> #}
+                {#            png full sized #}
+                {#        </a> #}
+                {#        <a type="button" #}
+                {#           download="uniform_{{ milpacProfile.username }}_{{ milpacProfile.milpacDataChangeAt|date("Y-m-d_H-i-s") }}.webp" #}
+                {#           href="{{ path("app_uniform_image", {userId: milpacProfile.userId, type: "webp"}) }}?t={{ t }}" #}
+                {#           class="tw-relative -tw-ml-px tw-inline-flex tw-items-center tw-bg-white tw-px-3 tw-py-2 tw-text-sm tw-font-semibold tw-text-gray-900 tw-ring-1 tw-ring-inset tw-ring-gray-300 hover:tw-bg-gray-50 focus:tw-z-10"> #}
+                {#            webp full sized (best) #}
+                {#        </a> #}
+                {#    </div> #}
+                {# </div> #}
+            </div>
+        </div>
+        <div class="tw-grid tw-grid-cols-2 tw-gap-2">
+            <div>currently online</div>
+            <div>newly generated</div>
+            <div>
+                <a target="_blank" href="{{ milpacProfile.data.uniformUrl }}?t={{ t }}">
+                    <img class="tw-w-full" src="{{ milpacProfile.data.uniformUrl }}?t={{ t }}" alt=""/>
+                </a>
+            </div>
+            <div>
+                <a target="_blank" href="{{ path("app_uniform_image", {userId: milpacProfile.userId}) }}?t={{ t }}">
+                    <img class="tw-w-full"
+                         src="{{ path("app_uniform_image", {userId: milpacProfile.userId}) }}?t={{ t }}"
+                         alt=""/>
+                </a>
+            </div>
+        </div>
+        <div class="tw-pt-5">
+            <h3 class="tw-text-xl tw-font-bold">Billets</h3>
+            <table class="tw-min-w-full tw-divide-y tw-divide-gray-300">
+                <thead>
+                    <tr>
+                        {# <th class="tw-px-3 tw-py-3.5 tw-text-left tw-text-sm tw-font-semibold tw-text-gray-300">milpacId</th> #}
+                        {# <th class="tw-px-3 tw-py-3.5 tw-text-left tw-text-sm tw-font-semibold tw-text-gray-300">milpacTitle</th> #}
+                        <th class="tw-px-3 tw-py-3.5 tw-text-left tw-text-sm tw-font-semibold">Service Branch</th>
+                        <th class="tw-px-3 tw-py-3.5 tw-text-left tw-text-sm tw-font-semibold">Position</th>
+                        <th class="tw-px-3 tw-py-3.5 tw-text-left tw-text-sm tw-font-semibold">Section</th>
+                        <th class="tw-px-3 tw-py-3.5 tw-text-left tw-text-sm tw-font-semibold">Platoon</th>
+                        <th class="tw-px-3 tw-py-3.5 tw-text-left tw-text-sm tw-font-semibold">Company</th>
+                        <th class="tw-px-3 tw-py-3.5 tw-text-left tw-text-sm tw-font-semibold">Battalion</th>
+                    </tr>
+                </thead>
+                {% for billetAssignment in milpacProfile.billetAssignmentsSorted %}
+                    <tbody>
+                        <tr class="{% if billetAssignment.id == milpacProfile.primaryBilletAssignment.id %}tw-bg-blue-50{% endif %}">
+                            {# <td class="tw-whitespace-nowrap tw-px-3 tw-py-4 tw-text-sm tw-text-gray-300">{{billetAssignment.milpacId}}</td> #}
+                            {# <td class="tw-whitespace-nowrap tw-px-3 tw-py-4 tw-text-sm tw-text-gray-300">{{billetAssignment.milpacTitle}}</td> #}
+                            <td class="tw-whitespace-nowrap tw-px-3 tw-py-4 tw-text-sm">{{ billetAssignment.serviceBranch }}</td>
+                            <td class="tw-whitespace-nowrap tw-px-3 tw-py-4 tw-text-sm">{{ billetAssignment.position.title }}</td>
+                            <td class="tw-whitespace-nowrap tw-px-3 tw-py-4 tw-text-sm">{{ billetAssignment.section }}</td>
+                            <td class="tw-whitespace-nowrap tw-px-3 tw-py-4 tw-text-sm">{{ billetAssignment.platoon }}</td>
+                            <td class="tw-whitespace-nowrap tw-px-3 tw-py-4 tw-text-sm">{{ billetAssignment.company }}</td>
+                            <td class="tw-whitespace-nowrap tw-px-3 tw-py-4 tw-text-sm">{{ billetAssignment.battalion }}</td>
+                        </tr>
+                    </tbody>
+                {% endfor %}
+            </table>
+            <div>
+            </div>
+        </div>
+        <div class="tw-pt-5">
+            <h3 class="tw-text-xl tw-font-bold">Awards by type</h3>
+            <div class="tw-divide-y tw-divide-gray-100">
+                {% for awardCategoryName,awardCategory in milpacProfile.awardList %}
+                    <div class="tw-py-5">
+                        <h4 class="tw-text-lg tw-mb-3">{{ awardCategoryName }}</h4>
+                        {# <pre>{{ awardGroup|json_encode }}</pre> #}
+                        {% if awardCategory|length > 1 %}
+                            <ul class="tw-space-y-3">
+                                {% for awardGroup in awardCategory %}
+                                    <li class="tw-flex tw-gap-x-4">
+                                        <div class="tw-flex-none">
+                                            <img class="tw-w-12" src="/{{ awardGroup.imageFileName }}" alt="">
+                                        </div>
+                                        <div class="tw-min-w-0">
+                                            <p class="tw-text-sm tw-font-semibold tw-leading-6">{{ awardGroup.stackingCount }}
+                                                * {{ awardGroup.name }} {% if awardGroup.isWithValor %}with valor{% endif %}</p>
+                                            {% for row in awardGroup.allRows %}
+                                                <p class="tw-mt-1 tw-truncate tw-text-xs tw-leading-5 tw-text-gray-500">
+                                                    {{ row.date }}
+                                                    {{ row.originalAwardName }}
+                                                    {% if row.withValor %}with valor{% endif %}
+                                                    {% if row.details %}({{ row.details }}){% endif %}
+                                                </p>
+                                            {% endfor %}
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% else %}
+                            <p class="tw-truncate tw-text-xs tw-text-gray-500">No awards in
+                                this category</p>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        {# <div class="tw-pt-5"> #}
+        {#    <pre>{{ milpacProfile.data|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre> #}
+        {# </div> #}
+    </div>
+    {#    {{ milpacProfile.data.rank.rankFull }} {{ milpacProfile.username }} #}
+    {# <img src="{{ milpacProfile.data.uniformUrl }}" alt="" /> #}
+    {# <pre>{{ milpacProfile.data|json_encode(constant('JSON_PRETTY_PRINT')) }}</pre> #}
+{% endblock %}
+

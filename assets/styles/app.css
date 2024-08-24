@@ -1,0 +1,67 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.button {
+    @apply tw-relative;
+    @apply tw-rounded-md;
+    @apply tw-inline-flex;
+    @apply tw-items-center;
+    @apply tw-bg-white;
+    @apply tw-px-3;
+    @apply tw-py-2;
+    @apply tw-text-sm;
+    @apply tw-font-semibold;
+    @apply tw-text-gray-900;
+    @apply tw-ring-1;
+    @apply tw-ring-inset;
+    @apply tw-ring-gray-300;
+    @apply hover:tw-bg-gray-50;
+    @apply focus:tw-z-10;
+}
+
+.button-small {
+    @apply tw-relative;
+    @apply tw-rounded-md;
+    @apply tw-inline-flex;
+    @apply tw-items-center;
+    @apply tw-bg-white;
+    @apply tw-px-1;
+    @apply tw-py-0.5;
+    @apply tw-text-sm;
+    @apply tw-font-semibold;
+    @apply tw-text-gray-900;
+    @apply tw-ring-1;
+    @apply tw-ring-inset;
+    @apply tw-ring-gray-300;
+    @apply hover:tw-bg-gray-50;
+    @apply focus:tw-z-10;
+}
+
+.button-group {
+    @apply tw-isolate;
+    @apply tw-inline-flex;
+    @apply tw-rounded-md;
+    @apply tw-shadow-sm;
+
+    .button, .button-small {
+        @apply tw-rounded-none;
+
+        + .button, .button-small {
+        }
+
+        &:first-child {
+            @apply tw-rounded-r-none;
+            @apply tw-rounded-l-md;
+        }
+
+        &:last-child {
+            @apply tw-rounded-l-none;
+            @apply tw-rounded-r-md;
+        }
+    }
+}
+
+
+body {
+}

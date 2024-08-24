@@ -1,0 +1,20 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div>
+        <div class="tw-flex tw-justify-between tw-items-end tw-mb-6">
+            <div class="tw-flex tw-gap-x-3 tw-items-center tw-justify-start">
+                <div>
+                    <img src="{{ asset('images/ftl-logo.webp') }}" alt="" class="tw-h-48 tw-w-auto"/>
+                </div>
+                <div>
+                    <div class="tw-text-xl">{{ organisation().title }} FTL - Home</div>
+                    <div><b>F</b>isch's <b>T</b>ool <b>L</b>ist</div>
+                </div>
+            </div>
+            <div class="tw-flex-col tw-items-end tw-justify-stretch tw-w-64">
+            </div>
+        </div>
+
+    </div>
+{% endblock %}

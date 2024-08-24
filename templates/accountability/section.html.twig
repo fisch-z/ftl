@@ -1,0 +1,59 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div>
+        <div class="tw-flex tw-justify-between tw-items-center tw-gap-x-6">
+            <div>
+                <div class="tw-flex tw-items-center tw-gap-1">
+                    <div class="tw-text-xl">{{ section.titleFull }}</div>
+                    <div class="tw-text-gray-500 tw-h-[24px]">{{ section.customName }}</div>
+                </div>
+                <div>
+                    <span class="tw-text-gray-500">SL:</span> {{ section.sectionLeader.userNameWithRank | default("vacant") }}
+                    <span class="tw-text-gray-500">ASL:</span> {{ section.assistantSectionLeader.userNameWithRank | default("vacant") }}
+                </div>
+
+            </div>
+            <div class="tw-flex tw-gap-1">
+                <div>
+                    <a class="button"
+                       href="{{ path("app_accountability_section_practice_new", {id: section.id}) }}">
+                        New SP
+                    </a>
+                </div>
+            </div>
+        </div>
+        {# TODO pagination #}
+        <ul role="list" class="tw-divide-y tw-divide-white/5">
+            {% for sectionPractice in section.sectionPractices %}
+                <li class="tw-relative tw-flex tw-items-center tw-space-x-4 tw-py-4">
+                    <div class="tw-min-w-0 tw-flex-auto">
+                        <div class="tw-flex tw-items-center tw-gap-x-3">
+                            {% if sectionPractice.isToday %}
+                                {% include "includes/_statusDot.html.twig" with {color: "green"} %}
+                            {% elseif sectionPractice.isInCurrentWeek %}
+                                {% include "includes/_statusDot.html.twig" with {color: "green-300"} %}
+                            {% elseif sectionPractice.isInPast %}
+                                {% include "includes/_statusDot.html.twig" with {color: "gray"} %}
+                            {% else %}
+                                {% include "includes/_statusDot.html.twig" with {color: "green-100"} %}
+                            {% endif %}
+
+                            <h2 class="tw-min-w-0 tw-text-sm tw-font-semibold tw-leading-6">
+                                <a href="{{ path("app_accountability_section_practice", {sectionId: section.id, id: sectionPractice.id}) }}"
+                                   class="tw-flex tw-gap-x-2">
+                                    <span class="tw-whitespace-nowrap">{{ sectionPractice.dateTime.format("dMy Hi") }}z</span>
+                                    <span class="tw-text-gray-400">/</span>
+                                    <span class="tw-whitespace-nowrap">{{ sectionPractice.dateTime.format("Y-m-d H:i") }}z</span>
+                                </a>
+                            </h2>
+                        </div>
+                        <div class="tw-mt-3 tw-flex tw-items-center tw-gap-x-2.5 tw-text-xs tw-leading-5 tw-text-gray-400">
+                            <p class="tw-whitespace-nowrap">{{ sectionPractice.week }}</p>
+                        </div>
+                    </div>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

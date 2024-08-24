@@ -1,0 +1,11 @@
+{% set _flashes = app.flashes %}
+{% if _flashes|length %}
+    <div class="tw-space-y-3 tw-mb-6">
+        {% for type,messages in _flashes %}
+            {% for message in messages %}
+                {% set _type = type in ["success", "error", "warning"] ? type : "info" %}
+                {% include "includes/message/_#{ _type }.html.twig" %}
+            {% endfor %}
+        {% endfor %}
+    </div>
+{% endif %}

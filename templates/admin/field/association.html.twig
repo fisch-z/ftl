@@ -1,0 +1,19 @@
+{# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
+{# @var field \EasyCorp\Bundle\EasyAdminBundle\Dto\FieldDto #}
+{# @var entity \EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto #}
+{% if 'toMany' == field.customOptions.get('associationType') %}
+    {#<span class="badge badge-secondary">{{ field.formattedValue }}</span>#}
+    {% for value in field.value %}
+        {% if field.customOptions.get('relatedUrl') is not null %}
+            <a class="badge badge-primary" href="{{ field.customOptions.get('relatedUrl')|replace({"--relatedId--": value.id}) }}">{{ value }}</a>
+        {% else %}
+            <span class="badge badge-primary">{{ value }}</span>
+        {% endif %}
+    {% endfor %}
+{% else %}
+    {% if field.customOptions.get('relatedUrl') is not null %}
+        <a class="badge badge-primary" href="{{ field.customOptions.get('relatedUrl') }}">{{ field.formattedValue }}</a>
+    {% else %}
+        <span class="badge badge-primary">{{ field.formattedValue }}</span>
+    {% endif %}
+{% endif %}

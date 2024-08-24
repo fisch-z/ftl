@@ -1,0 +1,123 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div>
+        <div class="tw-flex tw-justify-between tw-items-center tw-gap-x-6 tw-mb-6">
+            <div>
+                <div class="tw-flex tw-items-center tw-gap-1">
+                    <div class="tw-text-xl">{{ section.titleFull }}</div>
+                    <div class="tw-text-gray-500 tw-h-[24px]">{{ section.customName }}</div>
+                </div>
+                <div>
+                    <span class="tw-text-gray-500">SL:</span> {{ section.sectionLeader.userNameWithRank | default("vacant") }}
+                    <span class="tw-text-gray-500">ASL:</span> {{ section.assistantSectionLeader.userNameWithRank | default("vacant") }}
+                </div>
+
+            </div>
+            <div class="tw-flex tw-gap-1">
+            </div>
+        </div>
+
+        <div class="tw-min-w-0 tw-flex-auto">
+            <div class="tw-flex tw-items-center tw-gap-x-3">
+                {# <div class="tw-flex-none tw-rounded-full tw-bg-gray-100/10 tw-p-1 tw-text-gray-500"> #}
+                {#    <div class="tw-h-2 tw-w-2 tw-rounded-full tw-bg-current"></div> #}
+                {# </div> #}
+
+                {% if sectionPractice.isToday %}
+                    {% include "includes/_statusDot.html.twig" with {color: "green"} %}
+                {% elseif sectionPractice.isInCurrentWeek %}
+                    {% include "includes/_statusDot.html.twig" with {color: "green-300"} %}
+                {% elseif sectionPractice.isInPast %}
+                    {% include "includes/_statusDot.html.twig" with {color: "gray"} %}
+                {% else %}
+                    {% include "includes/_statusDot.html.twig" with {color: "green-100"} %}
+                {% endif %}
+
+                <h2 class="tw-min-w-0 tw-text-sm tw-font-semibold tw-leading-6">
+                    <span class="tw-flex tw-gap-x-2">
+                        <span class="tw-whitespace-nowrap">{{ sectionPractice.dateTime.format("dMy Hi") }}z</span>
+                        <span class="tw-text-gray-400">/</span>
+                        <span class="tw-whitespace-nowrap">{{ sectionPractice.dateTime.format("Y-m-d H:i") }}z</span>
+                    </span>
+                </h2>
+            </div>
+            <div class="tw-mt-3 tw-flex tw-items-center tw-gap-x-2.5 tw-text-xs tw-leading-5 tw-text-gray-400">
+                <p class="tw-whitespace-nowrap">{{ sectionPractice.week }}</p>
+            </div>
+        </div>
+
+        <div class="tw-mb-6">
+            <div class="tw-mt-8 tw-flow-root">
+                <div class="tw--mx-4 tw--my-2 tw-overflow-x-auto sm:tw--mx-6 lg:tw--mx-8">
+                    <div class="tw-inline-block tw-min-w-full tw-py-2 tw-align-middle sm:tw-px-6 lg:tw-px-8">
+                        <table class="tw-min-w-full tw-divide-y tw-divide-gray-300">
+                            <thead>
+                                <tr>
+                                    <th scope="col"
+                                        class="tw-py-3.5 tw-pl-4 tw-pr-3 tw-text-left tw-text-sm tw-font-semibold tw-text-gray-900 sm:tw-pl-0">
+                                        Name
+                                    </th>
+                                    <th scope="col"
+                                        class="tw-px-3 tw-py-3.5 tw-text-left tw-text-sm tw-font-semibold tw-text-gray-900">
+                                        Role
+                                    </th>
+                                    <th scope="col"
+                                        class="tw-px-3 tw-py-3.5 tw-text-left tw-text-sm tw-font-semibold tw-text-gray-900">
+                                        Signed RC
+                                    </th>
+                                    <th scope="col"
+                                        class="tw-px-3 tw-py-3.5 tw-text-left tw-text-sm tw-font-semibold tw-text-gray-900">
+                                        Attended SP
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="tw-divide-y tw-divide-gray-200 tw-bg-white">
+                                {% for index,attendanceRow in sectionPractice.attendanceList %}
+                                    <tr>
+                                        <td class="tw-whitespace-nowrap tw-py-5 tw-pl-4 tw-pr-3 tw-text-sm sm:tw-pl-0">
+                                            <a href="{{ attendanceRow.link }}">
+                                                {{ attendanceRow.userNameWithRank }}
+                                            </a>
+                                        </td>
+                                        <td class="tw-whitespace-nowrap tw-px-3 tw-py-5 tw-text-sm tw-text-gray-500">
+                                            {{ attendanceRow.positionTitle }}
+                                        </td>
+                                        <td class="tw-whitespace-nowrap tw-px-3 tw-py-5 tw-text-sm tw-text-gray-500">
+                                            <span class="button-group">
+                                                {% for status in allowedStatus.rcStatus %}
+                                                    <a href="{{ path("app_accountability_section_practice_update_trooper", {sectionId: section.id, id: sectionPractice.id, index: index, key: "rcStatus", value: status}) }}"
+                                                       class="button-small{% if status == attendanceRow.rcStatus %} !tw-bg-blue-500 !tw-text-white{% endif %}">{{ status }}</a>
+                                                {% endfor %}
+                                            </span>
+                                        </td>
+                                        <td class="tw-whitespace-nowrap tw-px-3 tw-py-5 tw-text-sm tw-text-gray-500">
+                                            <span class="button-group">
+                                                {% for status in allowedStatus.spStatus %}
+                                                    <a href="{{ path("app_accountability_section_practice_update_trooper", {sectionId: section.id, id: sectionPractice.id, index: index, key: "spStatus", value: status}) }}"
+                                                       class="button-small{% if status == attendanceRow.spStatus %} !tw-bg-blue-500 !tw-text-white{% endif %}">{{ status }}</a>
+                                                {% endfor %}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tw-mb-6">
+            <input class="tw-mb-3 tw-w-full tw-border tw-border-default tw-p-5 tw-bg-gray-200"
+                   value="{{ section.titleFull }} Roll Call {{ sectionPractice.week.firstDay.format("dMy") }} - {{ sectionPractice.week.lastDay.format("dMy") }}"/>
+            <textarea class="tw-w-full tw-h-56 tw-border tw-border-default tw-p-5 tw-bg-gray-200"
+                      readonly>{{ bbCode }}</textarea>
+        </div>
+        <div class="tw-mb-6">
+            <form action="{{ path("app_accountability_section_practice_delete", {sectionId: section.id, id: sectionPractice.id}) }}" method="post">
+                <button class="button !tw-bg-red-400 !tw-text-red-950">delete this SP</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,58 @@
+<div class="tw-flex tw-min-w-0 tw-gap-x-4">
+    {# tw-rounded-full #}
+    <div class="tw-h-12 tw-w-12 tw-flex-none tw-bg-white tw-bg-center tw-bg-contain tw-bg-no-repeat"
+         style="background-image: url('{{ milpacProfile.data.rank.rankImageUrl }}');">
+
+    </div>
+    {# <img class="tw-h-12 tw-w-12 tw-flex-none tw-rounded-full tw-bg-gray-50" src="{{ milpacProfile.data.rank.rankImageUrl }}" alt=""/> #}
+    <div class="tw-min-w-0 tw-flex-auto">
+        <div class="tw-text-sm tw-font-semibold tw-leading-6 tw-text-black">
+            {# <div class="tw-inline">{{ milpacProfile.data.rank.rankShort }} {{ milpacProfile.username }}</div> #}
+            <div class="tw-inline">{{ milpacProfile.data.rank.rankShort }} {{ milpacProfile.username }}</div>
+            <div class="tw-inline tw-text-gray-500">
+                {# ({{ milpacProfile.data.rank.rankFull }} #}
+                ({{ milpacProfile.data.rank.rankFull }} {{ milpacProfile.data.realName }})
+            </div>
+        </div>
+        <div class="tw-mt-1">
+            {# <div class="tw-mt-1 tw-truncate tw-text-xs tw-leading-5 tw-text-gray-900"> #}
+            {% for billetAssignment in milpacProfile.billetAssignmentsSorted %}
+                <span class="tw-inline-flex tw-items-center tw-rounded-md tw-px-2 tw-py-1 tw-text-xs tw-font-medium tw-ring-1 tw-ring-inset {% if loop.first %}tw-bg-blue-50 tw-text-blue-700 tw-ring-blue-700/10{% else %}tw-bg-gray-50 tw-text-gray-600 tw-ring-gray-500/10{% endif %}">{{ billetAssignment }}</span>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+
+<div class="tw-flex tw-shrink-0 tw-items-center tw-gap-x-4">
+    <div class="tw-hidden tw-shrink-0 sm:tw-flex sm:tw-flex-col sm:tw-items-end">
+        <div class="tw-mt-1 tw-flex tw-items-center tw-gap-x-1.5">
+            {% if milpacProfile.changeStatus == 'updated' %}
+                {% include "includes/_statusDot.html.twig" with {color: "green"} %}
+            {% elseif milpacProfile.changeStatus == 'not-tracked' %}
+                {% include "includes/_statusDot.html.twig" with {color: "orange"} %}
+            {% else %}
+                {% include "includes/_statusDot.html.twig" with {color: "red"} %}
+            {% endif %}
+            <p class="tw-text-xs tw-leading-5">{{ milpacProfile.changeStatusText }}</p>
+            {# <p class="tw-text-xs tw-leading-5 tw-text-gray-500">Updated</p> #}
+        </div>
+        <p class="tw-text-xs tw-leading-5 tw-text-gray-900" title="Last time this profile was synced"><span
+                    class="tw-text-gray-400">sync:</span> {{ milpacProfile.syncedAt|date("Y-m-d H:i") }}Z</p>
+        <p class="tw-text-xs tw-leading-5 tw-text-gray-900" title="Last time data changed during a sync"><span
+                    class="tw-text-gray-400">change:</span> {{ milpacProfile.milpacDataChangeAt|date("Y-m-d H:i") }}Z
+        </p>
+        <p class="tw-text-xs tw-leading-5 tw-text-gray-900" title="last time a clerk replaced the uniform image"><span
+                    class="tw-text-gray-400">uniform upload:</span>
+            {% if milpacProfile.uniformReplacedAt %}{{ milpacProfile.uniformReplacedAt|date("Y-m-d H:i") }}Z{% else %}never{% endif %}
+        </p>
+    </div>
+    {% if showListItemArrow %}
+        <svg class="tw-h-5 tw-w-5 tw-flex-none tw-text-gray-400" viewBox="0 0 20 20"
+             fill="currentColor" aria-hidden="true">
+            <path fill-rule="evenodd"
+                  d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z"
+                  clip-rule="evenodd"></path>
+        </svg>
+    {% endif %}
+</div>

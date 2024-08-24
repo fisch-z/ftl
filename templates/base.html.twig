@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html class="tw-h-full tw-bg-white">
+    <head>
+        {# TODO complete frontend redesign #}
+        <meta charset="UTF-8"/>
+        <title>{% block title %}{{ organisation().title }} FTL - Fisch's Tool List{% endblock %}</title>
+        {% block stylesheets %}
+        {% endblock %}
+
+        {% block javascripts %}
+            {% block importmap %}{{ importmap('app') }}{% endblock %}
+        {% endblock %}
+    </head>
+    <body class="tw-h-full">
+        <div>
+            {% include 'layout/_sidebarMobile.html.twig' %}
+            {% include 'layout/_sidebarDesktop.html.twig' %}
+
+            <div class="lg:tw-pl-72">
+                {% include 'layout/_topMenu.html.twig' %}
+
+                <main class="tw-py-10">
+                    <div class="tw-mx-auto tw-max-w-7xl tw-px-4 sm:tw-px-6 lg:tw-px-8">
+                        <div class="">
+                            {# tw-border tw-border-black #}
+                            {% include "includes/_flashes.html.twig" %}
+                            {% block body %}{% endblock %}
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+        <div class="tw-text-gray-500 tw-text-center tw-text-sm tw-px-3">
+            created by <a href="https://github.com/fisch-z/ftl" target="_blank">Fisch.Z</a>
+        </div>
+    </body>
+</html>

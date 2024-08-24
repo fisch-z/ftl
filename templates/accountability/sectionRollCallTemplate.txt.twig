@@ -1,0 +1,105 @@
+[CENTER]
+{% if section.bannerUrl %}[IMG]{{ section.bannerUrl }}[/IMG]{% endif %}
+
+[B][U]{{ section.getTitleFull }} - Roll Call[/U]
+{{ sectionPractice.week }}[/B][/CENTER]
+[TABLE]
+[TR]
+[TH][I]#[/I][/TH]
+[TH][I]Name[/I][/TH]
+[TH][I]Role[/I][/TH]
+{# TODO implement fire team support #}
+{#[TH][I]Fire Team[/I][/TH]#}
+[TH][I]Signed RC[/I][/TH]
+[TH][I]Attended SP[/I][/TH]
+[/TR]
+{% for index,attendanceRow in sectionPractice.getAttendanceList %}
+[TR]
+[TD]{{ loop.index }}[/TD]
+[TD][URL='{{ attendanceRow.link }}']{{ attendanceRow.userNameWithRank }}[/URL][/TD]
+[TD]{{ attendanceRow.positionTitle }}[/TD]
+{#[TD][/TD]#}
+[TD]{{ attendanceRow.rcStatus }}[/TD]
+[TD]{{ attendanceRow.spStatus }}[/TD]
+[/TR]
+{% endfor %}
+[/TABLE]
+
+[COLOR=rgb(154, 206, 228)]LOA[/COLOR] = Leave Of Absence
+[COLOR=rgb(230, 181, 153)]AWOL[/COLOR] = Absent Without Official Leave
+[COLOR=rgb(175, 184, 207)]DISCH[/COLOR] = Discharged Out
+[COLOR=rgb(194, 168, 215)]TRAN[/COLOR] = Transfered IN/OUT
+[COLOR=rgb(65, 168, 95)]M-U REQ[/COLOR] = Makeup Requested
+[COLOR=rgb(247, 218, 100)]RTC[/COLOR][COLOR=null] = New Trooper from RTC[/COLOR]
+ASL = Assistant Section Leader
+FTL = Fire Team Leader
+FT = Fire Team
+{#[COLOR=rgb(165, 217, 172)]✔[/COLOR] [COLOR=rgb(229, 155, 154)]✗[/COLOR]#}
+
+[B]Training Date: {{ sectionPractice.dateTime.format("dMy") | upper }} [/B]@{{ sectionPractice.dateTime.format("Hi") }}Z ([TIME=datetime]{{ sectionPractice.dateTime.format("Y-m-d\TH:i:sP")}}[/TIME] local time)
+
+[B]Completed MakeUps:
+
+SP Cadre:[/B]
+
+
+
+[HR=1][/HR]
+[B]Training Topic:[/B]
+
+[B]Training Material:[/B]
+
+
+[B]Section Practice Notes:[/B]
+
+
+Pros:
+
+Cons:
+
+
+
+[HR=1][/HR]
+[B]Upcoming Events:[/B]
+[TABLE]
+[TR]
+[TD]Event[/TD]
+[TD]Zulu Time[/TD]
+[TD]Local Time[/TD]
+[/TR]
+
+{% for event in upcomingEvents %}
+[TR]
+[TD]{% if event.link %}[URL='{{ event.link }}']{{ event.title }}[/URL]{% else %}{{ event.title }}{% endif %}[/TD]
+[TD]{{ event.date.format("dMy Hi") }}Z[/TD]
+[TD][TIME]{{ event.date.format("Y-m-d\TH:i:sP") }}[/TIME][/TD]
+[/TR]
+{% endfor %}
+
+[HR=1][/HR]
+[B]Useful Information:[/B]
+[LIST]
+[*][URL='https://7cav.us/forums/483/']S7 Classes[/URL]
+[*][URL='https://7cav.us/forums/484/']Operations[/URL]
+[*][URL='https://7cav.us/form/12/select']LOA Form[/URL]
+[*][URL='https://7cav.us/form/']PAFs[/URL]
+[*][URL='https://7cav.us/threads/15274/']Makeup SP Times[/URL]
+[*][URL='https://wiki.7cav.us/wiki/ACD_Section_Practice_Policy']Section Practice Policy[/URL]
+[/LIST]
+[HR=1][/HR]
+[B]Chain of Command:[/B]
+[LIST]
+{% for prefix,item in chainOfCommand %}
+{#    [*]{{ item.billetPosition.title }}: {% if item.milpacProfile %}[URL='{{ item.milpacProfile.getForumProfileLink }}']{{ item.milpacProfile.rank.title }} {{ item.milpacProfile.username }}[/URL]{% else %}[I]vacant[/I]{% endif %}#}
+    [*]{{ prefix }}: {% if item.milpacProfile %}[URL='{{ item.milpacProfile.getForumProfileLink }}']{{ item.milpacProfile.rank.title }} {{ item.milpacProfile.username }}[/URL]{% else %}[I]vacant[/I]{% endif %}
+{% endfor %}
+[/LIST]
+[HR=1][/HR]
+
+[B]ROLL-CALL RESPONSE (Copy and Paste One):[/B]
+------------------------------------------------------------------------
+[B][COLOR=rgb(165, 217, 172)]I will attend the SP at 1700 Zulu[/COLOR]
+
+[COLOR=rgb(229, 155, 154)]I cannot attend and will schedule a make-up[/COLOR]
+
+[COLOR=rgb(229, 155, 154)]I cannot attend and will file an LOA[/COLOR][/B]

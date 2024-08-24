@@ -1,0 +1,32 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div>
+        <div class="tw-flex tw-justify-between tw-items-end tw-mb-6">
+            <div class="tw-flex tw-gap-x-3 tw-items-center tw-justify-start">
+                <div>
+                    <img src="{{ asset('images/sqd-logo.webp') }}" alt="" class="tw-h-48 tw-w-auto"/>
+                </div>
+                <div>
+                    <div class="tw-text-xl">{{ organisation().title }} FTL - <b>SQD</b></div>
+                    <div><b>S</b>1 <b>Q</b>uality <b>D</b>ata</div>
+                </div>
+            </div>
+            <div class="tw-flex-col tw-items-end tw-justify-stretch tw-w-64">
+            </div>
+        </div>
+        {#        {% include "regimentalData/_tabs.html.twig" %} #}
+
+        <div class="tw-pt-6 tw-flex tw-flex-col tw-gap-3">
+            <div><a class="button" href="{{ path("app_regimentaldata_billetassignmentscsv") }}">Billet Assignments CSV</a></div>
+            <div><a class="button" href="{{ path("app_regimentaldata_s1apimasterrawmilpacscsv") }}">"S1 API MASTER - rawMILPACS"-Replacement</a></div>
+            <div><a class="button" href="{{ path("app_regimentaldata_s1operationsprofilescsv") }}">S1 Operations - Profiles (COMBAT & RESERVE & ELOA)</a></div>
+            <div><a class="button" href="{{ path("app_regimentaldata_s1operationsawardscsv") }}">S1 Operations - Awards (COMBAT & RESERVE & ELOA)</a></div>
+            <div><a class="button" href="{{ path("app_regimentaldata_s1operationsoperationsrecordscsv") }}">S1 Operations - Operation Records (COMBAT & RESERVE & ELOA)</a></div>
+            <div><a class="button" href="{{ path("app_regimentaldata_profilescsv") }}">Full Profiles (COMBAT & RESERVE & ELOA)</a></div>
+
+            {#            {% include "regimentalData/_table.html.twig" %} #}
+        </div>
+
+    </div>
+{% endblock %}

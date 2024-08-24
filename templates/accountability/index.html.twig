@@ -1,0 +1,76 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+    <div>
+        <div class="tw-flex tw-justify-between tw-items-end tw-mb-6">
+            <div class="tw-flex tw-gap-x-3 tw-items-center tw-justify-start">
+                <div>
+                    <img src="{{ asset('images/ace-logo.webp') }}" alt="" class="tw-h-48 tw-w-auto"/>
+                </div>
+                <div>
+                    <div class="tw-text-xl">{{ organisation().title }} FTL - <b>ACE</b></div>
+                    <div><b>A</b>ccountability <b>C</b>hecking <b>E</b>quipment</div>
+                </div>
+            </div>
+            <div class="tw-flex-col tw-items-end tw-justify-stretch tw-w-64">
+            </div>
+        </div>
+        {#        {% include "regimentalData/_tabs.html.twig" %} #}
+
+
+        <ul>
+            {% for battalionContainer in battalions %}
+                {% for companyContainer in battalionContainer.companies %}
+                    <li class="tw-border-b tw-border-gray-200 tw-py-5">
+                        <div class="tw-flex tw-justify-between tw-gap-x-6">
+                            <div>
+                                <div class="tw-text-xl">{{ companyContainer.company.titleFull }}</div>
+                                <div class="tw-text-gray-500 tw-h-[24px]">{{ companyContainer.company.customName }}</div>
+                            </div>
+                            <div></div>
+                        </div>
+                    </li>
+                    {% for platoonContainer in companyContainer.platoons %}
+                        {% for sectionContainer in platoonContainer.sections %}
+                            <li class="tw-border-b tw-border-gray-200 tw-py-5 tw-pr-5 tw-pl-10">
+                                <div class="tw-flex tw-justify-between tw-items-center tw-gap-x-6">
+                                    <div>
+                                        <div class="tw-flex tw-items-center tw-gap-1">
+                                        <div class="tw-text-xl">{{ sectionContainer.section.titleFull }}</div>
+                                        <div class="tw-text-gray-500 tw-h-[24px]">{{ sectionContainer.section.customName }}</div>
+                                        </div>
+                                        <div>
+                                            <span class="tw-text-gray-500">SL:</span> {{ sectionContainer.section.sectionLeader.userNameWithRank | default("vacant") }}
+                                            <span class="tw-text-gray-500">ASL:</span> {{ sectionContainer.section.assistantSectionLeader.userNameWithRank | default("vacant") }}
+                                        </div>
+
+                                    </div>
+                                    <div class="tw-flex tw-gap-1">
+                                        <div>
+                                            <a class="button"
+                                               href="{{ path("app_accountability_section", {id: sectionContainer.section.id}) }}">
+                                                Details
+                                            </a>
+                                        </div>
+                                        {#<div>#}
+                                        {#    <a class="button"#}
+                                        {#       href="{{ path("app_accountability_section", {id: sectionContainer.section.id}) }}">#}
+                                        {#        Current SP#}
+                                        {#    </a>#}
+                                        {#</div>#}
+                                        {#<div>#}
+                                        {#    <a class="button"#}
+                                        {#       href="{{ path("app_accountability_section", {id: sectionContainer.section.id}) }}">#}
+                                        {#        New SP#}
+                                        {#    </a>#}
+                                        {#</div>#}
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    {% endfor %}
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
